@@ -6,19 +6,17 @@ import asyncio
 from tornado.websocket import WebSocketHandler
 from tornado.web import RequestHandler, StaticFileHandler, Application, url
 from tornado.httpclient import AsyncHTTPClient
-from tornado.httputil import url_concat
-from tornado.escape import json_encode, json_decode
 from tornado.platform.asyncio import AsyncIOMainLoop
-
-from rx.subjects import Subject
-from rx.concurrency import AsyncIOScheduler
-
-
-
 
 class MainHandler(RequestHandler):
     def get(self):
-        self.render("index.html")
+        self.write("Hello! i am a async python server")
+        call localhost:8090
+
+    def post(self):
+        get body
+        address
+
 
 class WSHandler(WebSocketHandler):
     """docstring for WSHandler"""
