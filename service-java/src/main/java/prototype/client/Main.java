@@ -1,17 +1,9 @@
 package prototype.client;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-
-import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.util.async.Async;
-import se.jadestone.arena.wallet.adapter.api.SessionResponse;
 
 public class Main {
 
@@ -33,10 +25,10 @@ public class Main {
 	
 	
 	static private void callAsync(final int i){
-		Async.start(new Func0<SessionResponse>() {
+		Async.start(new Func0<String>() {
 			Caller caller = new Caller();
 			@Override
-			public SessionResponse call() {
+			public String call() {
 				System.out.format("\n %30s %-14s %" + (i * 4) + "s%n", "[" + Thread.currentThread().getName() + "]","starting ",i);
 				try {
 					Thread.sleep(2800);
@@ -44,13 +36,13 @@ public class Main {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				return caller.call();
+				return null;
 			}
-		}).map(new Func1<SessionResponse, String>() {
+		}).map(new Func1<String, String>() {
 
 			@Override
-			public String call(SessionResponse t1) {
-				return ToStringBuilder.reflectionToString(t1);
+			public String call(String t1) {
+				return t1.concat(" mapped");
 			}
 		}).subscribe(new Action1<String>() {
 

@@ -67,12 +67,6 @@
 	<artifactId>rxjava-async-util</artifactId>
 	<version>0.20.7</version>
 </dependency>
-	
-	<dependency>
-       <groupId>se.jadestone.arena.wallet</groupId>
-       <artifactId>adapter-api</artifactId>
-       <version>2.32.17</version>
-	</dependency>
 	<dependency>
 		<groupId>org.glassfish.jersey.media</groupId>
 		<artifactId>jersey-media-jaxb</artifactId>
