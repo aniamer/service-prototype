@@ -11,3 +11,6 @@ docker build -t async-py .
 
 docker run:
 docker run -p 8080:8080 -t async-py python3 service-py/server_asyncio.py
+
+call the api by:
+http://192.168.59.103:8080/getData
