@@ -6,9 +6,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import javax.management.RuntimeErrorException;
+import javax.ws.rs.client.AsyncInvoker;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,19 +28,31 @@ public class Caller {
 		String openSession = " player is not allowed";
 		Entity<String> entity = Entity
 				.entity(openSession, MediaType.TEXT_PLAIN);
-		String url = String.format("http://%s/session", address);
+		String url = String.format("http://%s/reactive-service/rest/getData/testData", address);
 		Response response = null;
+		AsyncInvoker asyncInvoker = client.target(url)
+				.request(MediaType.TEXT_PLAIN).async();
+		Future<Response> future=null;
 		try {
-			Future<Response> future = client.target(url)
-					.request(MediaType.TEXT_PLAIN).async().get();
-
 			switch (action) {
 			case ASYNC:
+				
+				future = asyncInvoker.get(new InvocationCallback<Response>() {
 
+					@Override
+					public void completed(Response arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void failed(Throwable arg0) {
+						arg0.printStackTrace();
+					}
+				});
 				break;
 			case SYNC:
-
-				response = future.get();
+				 future = asyncInvoker.get();
 
 				break;
 
@@ -50,17 +64,28 @@ public class Caller {
 						.type("text/plain").build();
 				break;
 			}
-		} catch (InterruptedException ex) {
-			response = Response.status(200)
-					.entity(Exceptions.getStackTraceAsString(ex))
-					.type("text/plain").build();
 		} catch (Exception ex) {
 			response = Response.status(200)
 					.entity(Exceptions.getStackTraceAsString(ex))
 					.type("text/plain").build();
 		}
 		
-		String result = response.readEntity(String.class);
+		String result = null;
+		while(!future.isDone()){
+			
+		}
+		try {
+			response = future.get();
+		} catch (InterruptedException e) {
+			response = Response.status(200)
+					.entity(Exceptions.getStackTraceAsString(e))
+					.type("text/plain").build();
+		} catch (ExecutionException e) {
+			response = Response.status(200)
+					.entity(Exceptions.getStackTraceAsString(e))
+					.type("text/plain").build();
+		}
+		result = response.readEntity(String.class);
 		return result;
 	}
 

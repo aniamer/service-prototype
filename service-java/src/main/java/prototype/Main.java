@@ -15,8 +15,10 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		HttpServer httpServer = startServer();
 		System.out.println("application started at "+SERVER_URI);
-		System.in.read();
-		httpServer.shutdownNow();
+		
+		while(true){
+			
+		}
 	}
 
 	public static HttpServer startServer() {

@@ -5,7 +5,7 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.util.async.Async;
 
-public class Main {
+public class AsyncMain {
 
 	public static void main(String[] args) throws InterruptedException {
 	
