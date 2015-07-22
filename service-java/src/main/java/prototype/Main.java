@@ -10,7 +10,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import prototype.server.ProtoypeService;
 
 public class Main {
-	public final static URI SERVER_URI=URI.create("http://localhost:8080/reactive-service/rest");
+	public final static URI SERVER_URI=URI.create("http://0.0.0.0:8080/reactive-service/rest");
 	
 	public static void main(String[] args) throws IOException {
 		HttpServer httpServer = startServer();

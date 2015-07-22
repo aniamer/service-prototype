@@ -10,7 +10,7 @@ RUN wget --no-check-certificate -O /tmp/pkg.tar.gz --header "Cookie: oraclelicen
     tar -zxf /tmp/pkg.tar.gz --xform='s/[^\/]*/jdk/' -C /opt && \
     rm -rf /tmp/*
 
-WORKDIR .
 EXPOSE 8080
 ADD target/service-java-0.0.1-SNAPSHOT.jar /data/service-java-0.0.1-SNAPSHOT.jar
-CMD java -jar /data/service-java-0.0.1-SNAPSHOT.jar
+WORKDIR /data/
+#CMD java -jar service-java-0.0.1-SNAPSHOT.jar
